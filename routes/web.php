@@ -23,5 +23,6 @@ Route::get('/', function () {
     $response = Http::withToken($token)->get("https://api.github.com/repos/{$owner}/{$repo}/issues");
 
     $issues = $response->json();
+//    nullOrEmptyString()
     dd($issues);
 });
