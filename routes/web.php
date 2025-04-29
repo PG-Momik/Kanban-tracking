@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Http;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +15,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+
+    $owner = 'PG-Momik';
+    $repo = 'Kanban-Tracking';
+    $token = env('GITHUB_GENERAL_SCOPE_TOKEN');
+
+    $response = Http::withToken($token)->get("https://api.github.com/repos/{$owner}/{$repo}/issues");
+
+    $issues = $response->json();
+    dd($issues);
 });
